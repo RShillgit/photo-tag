@@ -60,6 +60,23 @@ html, body, #root, .App {
     width: 75%;
 }
 
+/* Identify Character Box */
+.identification {
+    position: absolute;
+    display: flex;
+    
+}
+.identification .box {
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid red;
+}
+.identification .charOptions {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Footer */
 .footer {
     display: flex;
