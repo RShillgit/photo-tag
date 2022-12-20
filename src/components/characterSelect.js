@@ -1,30 +1,47 @@
 import waldo from '../images/waldo.png';
-import odlaw from '../images/odlaw.jpg';
-import wizard from '../images/wizard.jpeg';
+import odlaw from '../images/odlaw.png';
+import wizard from '../images/wizard.png';
 import { useState } from 'react';
 
 const CharacterSelect = () => {
 
-    const [message, setMessage] = useState('Message');
+    const [waldoHover, setWaldoHover] = useState('');
+    const [odlawHover, setOdlawHover] = useState('');
+    const [wizardHover, setWizardHover] = useState('');
 
-    const charSelector = (e) => {
+    // Set the image captions according to what image is being hovered over
+    const characterHoverEnter = (e) => {
+        if(e.target.alt === 'Waldo') setWaldoHover('Waldo');
+        else if(e.target.alt === 'Odlaw') setOdlawHover('Odlaw');
+        else if (e.target.alt === 'Wizard') setWizardHover('Wizard');
+    }
 
-        // Temporarily set message to selected character
-        // This is where it will update to correct/incorrect after user selection
-        setMessage(e.target.alt);
+    // Set the image captions back to nothing
+    const characterHoverLeave = () => {
+        setWaldoHover('')
+        setOdlawHover('')
+        setWizardHover('')
     }
 
     return (
-        <div className='characters'>
+        <div className='allCharacters'>
 
             <div className='selector'>
-                <img src={waldo} alt='Waldo' onClick={charSelector}/>
-                <img src={odlaw} alt='Odlaw' onClick={charSelector}/>
-                <img src={wizard} alt='Wizard' onClick={charSelector}/>
+                <div id='char-waldo' className='character'>
+                    <img src={waldo} alt='Waldo' onMouseEnter={characterHoverEnter} onMouseLeave={characterHoverLeave}/>
+                </div>
+                <div id='char-odlaw' className='character'>
+                    <img src={odlaw} alt='Odlaw' onMouseEnter={characterHoverEnter} onMouseLeave={characterHoverLeave}/>
+                </div>
+                <div id='char-wizard' className='character'>
+                    <img src={wizard} alt='Wizard' onMouseEnter={characterHoverEnter} onMouseLeave={characterHoverLeave}/>
+                </div>
             </div>
 
-            <div className='message'>
-                <p>{message}</p>
+            <div className='characterNames'>
+                <p>{waldoHover}</p>
+                <p>{odlawHover}</p>
+                <p>{wizardHover}</p>
             </div>
             
         </div>

@@ -9,45 +9,51 @@ html, body, #root, .App {
 /* Header */
 .header {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+}
+.header .gameTimer {
+    display: flex;
+    align-items: center;
 }
 
 /* Character Bar */
-.characters {
+.allCharacters {
     display: flex;
-    justify-content: space-between;
     border-bottom: 3px solid red;
+    flex-direction: column;
 }
 .selector {
-    margin: 0rem 0rem 1rem 1rem;
+    margin: 0rem 1rem 0rem 1rem;
     display: flex;
+    justify-content: center;
     gap: 2rem;
-    width: 80%;
 }
-.selector img {
-    width: 5%;
+.selector .character {
+    display: flex;
+    height: 5rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
-.selector img:hover {
+.selector .character img {
+    width: 60px;
+}
+.selector .character img:hover {
     cursor: pointer;
 }
-.message {
-    width: 20%;
+.allCharacters .characterNames {
     display: flex;
-    align-items: center;
+    gap: 2rem;
     justify-content: center;
-    margin: 0rem 1rem 1rem 0rem;
-    font-size: x-large;
+    height: 2rem;
+    margin-top: 5px;
 }
-.message p {
+.allCharacters .characterNames p {
+    width: 60px;
     margin: 0;
+    font-size: large;
+    text-align: center;
 }
-.message p.correct {
-    color: green;
-}
-.message p.incorrect {
-    color: red;
-}
-
 
 /* Wheres Waldo Image */
 .wheresWaldo {
