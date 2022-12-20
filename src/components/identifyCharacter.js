@@ -5,16 +5,22 @@ const IdentifyCharacter = (props) => {
         top: `${props.y}px`
     }
 
-    console.log(divStyle);
+    const characterSelection = (e) => {
+
+        const selection = e.target.innerHTML;
+
+        // Send selected character to App's charSelect function
+        props.charSelect(selection);
+    }
 
     return (
         <div className="identification" style={divStyle}>
             <div className="box">
             </div>
             <div className="charOptions">
-                <button>Waldo</button>
-                <button>Odlaw</button>
-                <button>Wizard</button>
+                <button onClick={characterSelection}>Waldo</button>
+                <button onClick={characterSelection}>Odlaw</button>
+                <button onClick={characterSelection}>Wizard</button>
             </div>
         </div>
     )
