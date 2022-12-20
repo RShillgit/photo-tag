@@ -23,7 +23,12 @@ function App() {
   }
 
   const charSelect = (char) => {
-    console.log(char)
+    
+    // Initialize
+    let selectedChar;
+    const xPosition = coord.x + 16;
+    const yPosition = coord.y + 16;
+
 
     // Set identificationBox back to nothing so it goes away
     setIdentificationBox('');
@@ -32,7 +37,24 @@ function App() {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `characters`)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+
+        // Database Information
+        const dbInfo = snapshot.val();
+
+        // Loop through database, find the character that the user selected
+        for(let i = 0; i < dbInfo.chars.length; i++) {
+          if (dbInfo.chars[i].name === char) {
+
+            selectedChar = dbInfo.chars[i];
+          }
+        }
+
+        // Compare their x and y values to the coordinate
+        if (xPosition >= selectedChar.xRange[0] && xPosition <= selectedChar.xRange[1] && yPosition >= selectedChar.yRange[0] && yPosition <= selectedChar.yRange[1]) {
+          console.log('Correct!');
+        }
+        else console.log('Wrong!');
+        
       } else {
         console.log("No data available");
       }
