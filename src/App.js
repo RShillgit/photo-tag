@@ -177,6 +177,16 @@ function App() {
 
   // TODO: Write to realtime database
   const saveToLeaderboard = (username, time) => {
+    console.log(username)
+
+    const db = getDatabase();
+    const oldLeaderboard = [...leaderboard];
+    const newEntry = {
+      time: time,
+      username: username
+    }
+    const newleaderboard = oldLeaderboard.concat(newEntry);
+    console.log(newleaderboard);
     console.log(`Saving... ${username} in ${time} seconds`)
   }
 

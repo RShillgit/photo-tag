@@ -7,7 +7,6 @@ const Leaderboard = (props) => {
 
     // On mount load leaderboard
     useEffect(() => {
-        console.log(props.leaderboard);
         setLeaderboardEntries(props.leaderboard.map(entry => 
             <div className="leaderboard-row" key={uniqid()}>
                 <p>{entry.username}</p>
