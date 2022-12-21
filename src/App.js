@@ -24,43 +24,48 @@ function App() {
   // Game Timer
   useEffect(() => {
 
-    if (gameOver === false) {
+    // Variables
+    let second = 0;
+    let minute = 0;
+    let hour = 0;
 
-      // Variables
-      let second = 0;
-      let minute = 0;
-      let hour = 0;
+    const incrementClock = () => {
 
-      const incrementClock = () => {
+      // Next, we add a new second since one second is passed
+      second++;
 
-        // Next, we add a new second since one second is passed
-        second++;
-
-        // We check if the second equals 60 "one minute"
-        if (second === 60) {
-        // If so, we add a minute and reset our seconds to 0
-        minute++;
-        second = 0;
-        }
-
-        // If we hit 60 minutes "one hour" we reset the minutes and plus an hour
-        if (minute === 60) {
-        hour++;
-        minute = 0;
-        }
-
-        setClock(
-          (hour ? hour + ':' : '') +
-          (minute < 10 ? '0' + minute : minute) +
-          ':' +
-          (second < 10 ? '0' + second : second)
-        );
-
+      // We check if the second equals 60 "one minute"
+      if (second === 60) {
+      // If so, we add a minute and reset our seconds to 0
+      minute++;
+      second = 0;
       }
+
+      // If we hit 60 minutes "one hour" we reset the minutes and plus an hour
+      if (minute === 60) {
+      hour++;
+      minute = 0;
+      }
+
+      setClock(
+        (hour ? hour + ':' : '') +
+        (minute < 10 ? '0' + minute : minute) +
+        ':' +
+        (second < 10 ? '0' + second : second)
+      );
+    }
+
+    if (gameOver === false) {
       setInterval(incrementClock, 1000);
+      // I Think an issue is this code runs twice, 
+      // so when clearing the interval it only clears once
     }
     else if(gameOver === true) {
-      console.log('Game over, why is the clock not stopping');
+
+      const completionTime = clock;
+     
+      clearInterval(incrementClock);
+      console.log(`Your Final Time was ${completionTime}, why is the clock not stopping`);
     }
 
   }, [gameOver]);
@@ -69,8 +74,9 @@ function App() {
 
     // Using -16 here because the box has a height and width of 2rem (32px x 32px)
     // So to center the box i subtract 1rem(16px) from the left and top
-    let xCoord = e.clientX - 16;
-    let yCoord = e.clientY - 16;
+    let xCoord = e.pageX - 16;
+    let yCoord = e.pageY - 16;
+    console.log(e.pageX, e.pageY)
 
     setCoord({x: xCoord, y: yCoord})
   }
@@ -115,7 +121,6 @@ function App() {
             setGameOver(true);
           }
         }
-
       } else {
         console.log("No data available");
       }
