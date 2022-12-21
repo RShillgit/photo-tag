@@ -1,4 +1,20 @@
-const Leaderboard = () => {
+import uniqid from 'uniqid';
+import { useEffect, useState } from "react";
+
+const Leaderboard = (props) => {
+
+    const [leaderboardEntries, setLeaderboardEntries] = useState('');
+
+    // On mount load leaderboard
+    useEffect(() => {
+        console.log(props.leaderboard);
+        setLeaderboardEntries(props.leaderboard.map(entry => 
+            <div className="leaderboard-row" key={uniqid()}>
+                <p>{entry.username}</p>
+                <p>{entry.time}</p>
+            </div>
+        ))
+    }, [])
 
     const playAgainButtonClick = (e) => {
         e.preventDefault();
@@ -13,14 +29,7 @@ const Leaderboard = () => {
                     <h4>Completion Time</h4>
                 </div>
                 <div className="leaderboard-rows">
-                    <div className="leaderboard-row">
-                        <p>Blah Blah</p>
-                        <p>00:25 seconds</p>
-                    </div>
-                    <div className="leaderboard-row">
-                        <p>Blah Blah number 2</p>
-                        <p>00:35 seconds</p>
-                    </div>
+                    {leaderboardEntries}
                 </div>
             </div>
             <div className="play-again">

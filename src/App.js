@@ -22,6 +22,7 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [clock, setClock] = useState('00:00');
   const [winner, setWinner] = useState('');
+  const [leaderboard, setLeaderboard] = useState(null);
 
   // Game Timer
   useEffect(() => {
@@ -61,13 +62,11 @@ function App() {
     else if(gameOver === true) {
       const completionTime = clock;
       clearInterval(incrementClock);
-      console.log(`Your Final Time was ${completionTime}, why is the clock not stopping`);
 
       // Render winner Screen
-      setWinner(<WinnerScreen completionTime={completionTime}/>)
+      setWinner(<WinnerScreen completionTime={completionTime} leaderboard={leaderboard} saveToLeaderboard={saveToLeaderboard}/>)
     }
   }, [gameOver]);
-
 
   const getMousePos = (e) => {
 
@@ -152,6 +151,35 @@ function App() {
     }
   }, [charImages])
 
+  // On mount load leaderboard
+  useEffect(() => {
+    loadLeaderboard();
+  }, [])
+
+  const loadLeaderboard = () => {
+
+    // Load leaderboard database
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `leaderboard`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        // Database Information
+        const dbInfo = snapshot.val();
+        setLeaderboard(dbInfo);
+
+      } else {
+        console.log("No data available");
+      }
+      
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  // TODO: Write to realtime database
+  const saveToLeaderboard = (username, time) => {
+    console.log(`Saving... ${username} in ${time} seconds`)
+  }
+
   return (
     <div className="App">
 
@@ -169,8 +197,6 @@ function App() {
       </div>
 
       {identificationBox}
-
-      
 
       <Footer />
 
