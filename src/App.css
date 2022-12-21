@@ -86,6 +86,80 @@ html, body, #root, .App {
     flex-direction: column;
 }
 
+/* Winner Screen */
+.winner-screen {
+    position: absolute;
+    background-color: white;
+    z-index: 2;
+    height: 100%;
+    width: 1850px;
+}
+.winner-screen .winner-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.winner-screen .winner-form .endgame-directions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.endgame-buttons {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+}
+.endgame-buttons button:hover {
+    cursor: pointer;
+}
+.leaderboard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.leaderboard-table {
+    border: 2px solid black;
+    border-bottom: 1px solid black;
+    width: 925px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.leaderboard-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+.leaderboard-header h4 {
+    margin: 1rem;
+}
+.leaderboard-rows {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.leaderboard-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+.leaderboard-row p {
+    margin: 1rem;
+}
+.play-again {
+    padding: 1rem;
+}
+.play-again button {
+    padding: 1rem;
+    font-size: large;
+}
+.play-again button:hover {
+    cursor: pointer;
+}
+
 /* Footer */
 .footer {
     display: flex;

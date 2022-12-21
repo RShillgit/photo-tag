@@ -4,6 +4,7 @@ import wheresWaldoImg from './images/whereswaldo.jpg';
 import Clock from './components/clock';
 import CharacterSelect from './components/characterSelect';
 import Footer from './components/footer';
+import WinnerScreen from './components/winnerScreen';
 import IdentifyCharacter from './components/identifyCharacter';
 import { getDatabase, ref, child, get } from "firebase/database";
 
@@ -20,18 +21,18 @@ function App() {
   )
   const [gameOver, setGameOver] = useState(false);
   const [clock, setClock] = useState('00:00');
+  const [winner, setWinner] = useState('');
 
   // Game Timer
   useEffect(() => {
 
-    // Variables
+    //Variables
     let second = 0;
     let minute = 0;
     let hour = 0;
 
     const incrementClock = () => {
-
-      // Next, we add a new second since one second is passed
+      // Add a new second since one second is passed
       second++;
 
       // We check if the second equals 60 "one minute"
@@ -40,13 +41,13 @@ function App() {
       minute++;
       second = 0;
       }
-
+  
       // If we hit 60 minutes "one hour" we reset the minutes and plus an hour
       if (minute === 60) {
       hour++;
       minute = 0;
       }
-
+  
       setClock(
         (hour ? hour + ':' : '') +
         (minute < 10 ? '0' + minute : minute) +
@@ -54,21 +55,19 @@ function App() {
         (second < 10 ? '0' + second : second)
       );
     }
-
     if (gameOver === false) {
       setInterval(incrementClock, 1000);
-      // I Think an issue is this code runs twice, 
-      // so when clearing the interval it only clears once
     }
     else if(gameOver === true) {
-
       const completionTime = clock;
-     
       clearInterval(incrementClock);
       console.log(`Your Final Time was ${completionTime}, why is the clock not stopping`);
-    }
 
+      // Render winner Screen
+      setWinner(<WinnerScreen completionTime={completionTime}/>)
+    }
   }, [gameOver]);
+
 
   const getMousePos = (e) => {
 
@@ -76,7 +75,6 @@ function App() {
     // So to center the box i subtract 1rem(16px) from the left and top
     let xCoord = e.pageX - 16;
     let yCoord = e.pageY - 16;
-    console.log(e.pageX, e.pageY)
 
     setCoord({x: xCoord, y: yCoord})
   }
@@ -164,11 +162,15 @@ function App() {
 
       <CharacterSelect />
 
+      {winner}
+
       <div className='wheresWaldo'>
         <img id='wheresWaldoCanvas' src={wheresWaldoImg} alt='Wheres Waldo?' onClick={getMousePos} />
       </div>
 
       {identificationBox}
+
+      
 
       <Footer />
 
