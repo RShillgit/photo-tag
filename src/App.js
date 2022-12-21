@@ -5,7 +5,6 @@ import Clock from './components/clock';
 import CharacterSelect from './components/characterSelect';
 import Footer from './components/footer';
 import IdentifyCharacter from './components/identifyCharacter';
-
 import { getDatabase, ref, child, get } from "firebase/database";
 
 function App() {
@@ -20,8 +19,51 @@ function App() {
     },
   )
   const [gameOver, setGameOver] = useState(false);
+  const [clock, setClock] = useState('00:00');
 
-  // TODO const timer = () => {}
+  // Game Timer
+  useEffect(() => {
+
+    if (gameOver === false) {
+
+      // Variables
+      let second = 0;
+      let minute = 0;
+      let hour = 0;
+
+      const incrementClock = () => {
+
+        // Next, we add a new second since one second is passed
+        second++;
+
+        // We check if the second equals 60 "one minute"
+        if (second === 60) {
+        // If so, we add a minute and reset our seconds to 0
+        minute++;
+        second = 0;
+        }
+
+        // If we hit 60 minutes "one hour" we reset the minutes and plus an hour
+        if (minute === 60) {
+        hour++;
+        minute = 0;
+        }
+
+        setClock(
+          (hour ? hour + ':' : '') +
+          (minute < 10 ? '0' + minute : minute) +
+          ':' +
+          (second < 10 ? '0' + second : second)
+        );
+
+      }
+      setInterval(incrementClock, 1000);
+    }
+    else if(gameOver === true) {
+      console.log('Game over, why is the clock not stopping');
+    }
+
+  }, [gameOver]);
 
   const getMousePos = (e) => {
 
@@ -107,23 +149,12 @@ function App() {
     }
   }, [charImages])
 
-  // Checks game over state
-  useEffect(() => {
-    if(gameOver === true) {
-      console.log('The Game is over!');
-
-      // Stop the clock
-
-      // Show game over screen, final time, and replay button
-    }
-  }, [gameOver])
-
   return (
     <div className="App">
 
       <div className='header'>
         <h1>Find Each Character</h1>
-        <Clock />
+        <Clock time={clock}/>
       </div>
 
       <CharacterSelect />
