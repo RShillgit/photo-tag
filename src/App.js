@@ -6,7 +6,7 @@ import CharacterSelect from './components/characterSelect';
 import Footer from './components/footer';
 import WinnerScreen from './components/winnerScreen';
 import IdentifyCharacter from './components/identifyCharacter';
-import { getDatabase, ref, child, get, set, push, update } from "firebase/database";
+import { getDatabase, ref, child, get, update } from "firebase/database";
 
 function App() {
 
