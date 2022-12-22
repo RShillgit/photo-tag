@@ -16,25 +16,6 @@ const WinnerScreen = (props) => {
         window.location.reload();
     }
 
-    /*
-    const saveScoreButtonClick = (e) => {
-
-        e.preventDefault();
-
-        // Send to a function in App to save this to database
-        props.saveToLeaderboard(userInput, props.completionTime);
-
-        // Remove end game form
-        const endGameForm = document.querySelector('.winner-form');
-        endGameForm.style.display = 'none';
-
-        // Run load leaderboard function again
-        props.loadLeaderboard();
-
-        // Render leaderboard
-        setLeaderboardView(<Leaderboard leaderboard={props.leaderboard} loadLeaderboard={props.loadLeaderboard}/>);
-    }
-    */
     async function saveScoreButtonClick(e) {
 
         e.preventDefault();
@@ -46,10 +27,9 @@ const WinnerScreen = (props) => {
         const endGameForm = document.querySelector('.winner-form');
         endGameForm.style.display = 'none';
 
-        // Run re load leaderboard function
+        // Wait for reloadLeaderboard function to return updated leaderboard
         await (props.reloadLeaderboard()).then((result) => {
-            console.log(result)
-            // Render leaderboard
+            // Render updated leaderboard
             setLeaderboardView(<Leaderboard leaderboard={result}/>)
         });
     }

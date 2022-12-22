@@ -7,7 +7,6 @@ import Footer from './components/footer';
 import WinnerScreen from './components/winnerScreen';
 import IdentifyCharacter from './components/identifyCharacter';
 import { getDatabase, ref, child, get, set, push, update } from "firebase/database";
-import { wait } from '@testing-library/user-event/dist/utils';
 
 function App() {
 
@@ -64,6 +63,10 @@ function App() {
       const completionTime = clock;
       clearInterval(incrementClock);
 
+      // Hide clock
+      const gameClock = document.querySelector('.gameTimer');
+      gameClock.style.display = 'none';
+
       // Render winner Screen
       setWinner(<WinnerScreen completionTime={completionTime} leaderboard={leaderboard} reloadLeaderboard={reloadLeaderboard} saveToLeaderboard={saveToLeaderboard}/>)
     }
@@ -100,7 +103,6 @@ function App() {
         // Loop through database, find the character that the user selected
         for(let i = 0; i < dbInfo.chars.length; i++) {
           if (dbInfo.chars[i].name === char) {
-
             selectedChar = dbInfo.chars[i];
           }
         }
@@ -167,11 +169,9 @@ function App() {
         const dbInfo = snapshot.val();
         setLeaderboard(dbInfo);
         return dbInfo;
-
       } else {
         console.log("No data available");
       }
-      
     }).catch((error) => {
       console.error(error);
     });
@@ -180,6 +180,7 @@ function App() {
   const saveToLeaderboard = (username, time) => {
 
     const db = getDatabase();
+    // Copy old leaderboard and add the new entry to it
     const oldLeaderboard = [...leaderboard];
     const newEntry = {
       time: time,
@@ -196,27 +197,27 @@ function App() {
     return update(ref(db), updates);
   }
 
+  // Reloads leaderboard to get updated information
   async function reloadLeaderboard() {
 
     function loadLeaderboardAgain() {
       // Load leaderboard database
       const dbRef = ref(getDatabase());
-      const promise = get(child(dbRef, `leaderboard`)).then((snapshot) => {
+      const reloaded = get(child(dbRef, `leaderboard`)).then((snapshot) => {
         if (snapshot.exists()) {
           return snapshot.val();
         }
       })
-      return promise;
+      return reloaded;
     };
 
     async function waitForLeaderboard() {
-      const t = await loadLeaderboardAgain();
-      return t;
+      const updatedLeaderboardInfo = await loadLeaderboardAgain();
+      return updatedLeaderboardInfo;
     }
-    const tester = waitForLeaderboard();
-    return tester;
+    const newleaderboard = waitForLeaderboard();
+    return newleaderboard;
   }
-
 
   return (
     <div className="App">
