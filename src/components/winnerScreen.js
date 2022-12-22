@@ -1,35 +1,14 @@
 import Leaderboard from "./leaderboard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const WinnerScreen = (props) => {
 
     const [userInput, setUserInput] = useState('');
-    const [endgameForm, setEndGameForm] = useState('');
     const [leaderboardView, setLeaderboardView] = useState('');
 
-    // On mount render endgame form
-    useEffect(() => {
-        setEndGameForm(
-            <form className="winner-form">
-                <div className="endgame-directions">
-                    <p>You Finished in {props.completionTime} seconds!</p>
-                    <p>Enter a name to save your score to the leaderboard</p>
-                    <p>{userInput}</p>
-                </div>
-                <input type="text" onChange={handleChange} placeholder="Name"></input>
-                <div className="endgame-buttons">
-                    <button onClick={cancelButtonClick}>Cancel</button>
-                    <button onClick={(e) => saveScoreButtonClick(e)}>Save Score</button>
-                </div>
-            </form>
-        )
-    }, [])
-
-    // TODO: isnt setting user input until form submit??????
-    // Maybe remove the form and just make it divs
     const handleChange = (e) => {
         e.preventDefault();
-        setUserInput(e.target.value)
+        setUserInput(e.target.value);
     }
 
     const cancelButtonClick = (e) => {
@@ -37,6 +16,7 @@ const WinnerScreen = (props) => {
         window.location.reload();
     }
 
+    /*
     const saveScoreButtonClick = (e) => {
 
         e.preventDefault();
@@ -45,15 +25,48 @@ const WinnerScreen = (props) => {
         props.saveToLeaderboard(userInput, props.completionTime);
 
         // Remove end game form
-        setEndGameForm('');
+        const endGameForm = document.querySelector('.winner-form');
+        endGameForm.style.display = 'none';
+
+        // Run load leaderboard function again
+        props.loadLeaderboard();
 
         // Render leaderboard
-        setLeaderboardView(<Leaderboard leaderboard={props.leaderboard}/>);
+        setLeaderboardView(<Leaderboard leaderboard={props.leaderboard} loadLeaderboard={props.loadLeaderboard}/>);
+    }
+    */
+    async function saveScoreButtonClick(e) {
+
+        e.preventDefault();
+
+        // Send to a function in App to save this to database
+        props.saveToLeaderboard(userInput, props.completionTime);
+
+        // Remove end game form
+        const endGameForm = document.querySelector('.winner-form');
+        endGameForm.style.display = 'none';
+
+        // Run re load leaderboard function
+        await (props.reloadLeaderboard()).then((result) => {
+            console.log(result)
+            // Render leaderboard
+            setLeaderboardView(<Leaderboard leaderboard={result}/>)
+        });
     }
 
     return (
         <div className="winner-screen">
-            {endgameForm}
+            <form className="winner-form">
+                <div className="endgame-directions">
+                    <p>You Finished in {props.completionTime} seconds!</p>
+                    <p>Enter a name to save your score to the leaderboard</p>
+                </div>
+                <input type="text" onChange={handleChange} placeholder="Name"></input>
+                <div className="endgame-buttons">
+                    <button onClick={cancelButtonClick}>Cancel</button>
+                    <button onClick={saveScoreButtonClick}>Save Score</button>
+                </div>
+            </form>
             {leaderboardView}
         </div>
     )
