@@ -7,12 +7,29 @@ const Leaderboard = (props) => {
 
     // On mount load leaderboard
     useEffect(() => {
-        setLeaderboardEntries(props.leaderboard.map(entry => 
+        const sortedLeaderboard = props.leaderboard.sort((a, b) => {
+
+            // minutes and seconds for a
+            const aTimeSplit = a.time.split(':');
+            const aMinutes = Number(aTimeSplit[0]);
+            const aSeconds = Number(aTimeSplit[1]); 
+
+            // minutes and seconds for b
+            const bTimeSplit = b.time.split(':');
+            const bMinutes = Number(bTimeSplit[0]);
+            const bSeconds = Number(bTimeSplit[1]); 
+
+            if (aMinutes < bMinutes) return -1;
+            else if (aMinutes === bMinutes && aSeconds < bSeconds) return -1;
+            else return 1;
+        })
+        setLeaderboardEntries(sortedLeaderboard.map(entry => 
             <div className="leaderboard-row" key={uniqid()}>
                 <p>{entry.username}</p>
                 <p>{entry.time}</p>
             </div>
         ))
+
     }, [])
 
     const playAgainButtonClick = (e) => {
