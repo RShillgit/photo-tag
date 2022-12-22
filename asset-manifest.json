@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/https//RShillgit.github.io/photo-tag/static/css/main.2fcaefa3.css",
-    "main.js": "/https//RShillgit.github.io/photo-tag/static/js/main.e18afd01.js",
-    "static/media/whereswaldo.jpg": "/https//RShillgit.github.io/photo-tag/static/media/whereswaldo.56622b091801ae51dd92.jpg",
-    "static/media/waldo.png": "/https//RShillgit.github.io/photo-tag/static/media/waldo.dd064671c5ded5d60011.png",
-    "static/media/odlaw.png": "/https//RShillgit.github.io/photo-tag/static/media/odlaw.01ee057d4e13789f9be4.png",
-    "static/media/wizard.png": "/https//RShillgit.github.io/photo-tag/static/media/wizard.0fe6d7935f0a93e65815.png",
-    "index.html": "/https//RShillgit.github.io/photo-tag/index.html",
-    "main.2fcaefa3.css.map": "/https//RShillgit.github.io/photo-tag/static/css/main.2fcaefa3.css.map",
-    "main.e18afd01.js.map": "/https//RShillgit.github.io/photo-tag/static/js/main.e18afd01.js.map"
+    "main.css": "/photo-tag/static/css/main.2fcaefa3.css",
+    "main.js": "/photo-tag/static/js/main.6be5807d.js",
+    "static/media/whereswaldo.jpg": "/photo-tag/static/media/whereswaldo.56622b091801ae51dd92.jpg",
+    "static/media/waldo.png": "/photo-tag/static/media/waldo.dd064671c5ded5d60011.png",
+    "static/media/odlaw.png": "/photo-tag/static/media/odlaw.01ee057d4e13789f9be4.png",
+    "static/media/wizard.png": "/photo-tag/static/media/wizard.0fe6d7935f0a93e65815.png",
+    "index.html": "/photo-tag/index.html",
+    "main.2fcaefa3.css.map": "/photo-tag/static/css/main.2fcaefa3.css.map",
+    "main.6be5807d.js.map": "/photo-tag/static/js/main.6be5807d.js.map"
   },
   "entrypoints": [
     "static/css/main.2fcaefa3.css",
-    "static/js/main.e18afd01.js"
+    "static/js/main.6be5807d.js"
   ]
 }
