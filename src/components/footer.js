@@ -1,7 +1,11 @@
+import githubMark from '../images/githubMark.png';
+
 const Footer = () => {
     return (
         <div className='footer'>
-            <p>Footer</p>
+            <a href='https://github.com/RShillgit'>
+                <img src={githubMark} alt='github'/>
+            </a>
         </div>
     )
 }

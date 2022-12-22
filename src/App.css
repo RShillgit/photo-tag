@@ -166,7 +166,28 @@ html, body, #root, .App {
 
 /* Footer */
 .footer {
+    padding: 1rem;
     display: flex;
     justify-content: center;
     border-top: 3px solid red;
+}
+.footer a img {
+    filter: invert(13%) sepia(87%) saturate(7489%) hue-rotate(0deg) brightness(106%) contrast(112%);
+}
+.footer a {
+    transition: all 1s ease-in-out;
+}
+.footer a:hover {
+    animation: rotate 0.4s linear;
+}
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }
